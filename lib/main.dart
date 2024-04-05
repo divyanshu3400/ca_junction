@@ -1,7 +1,9 @@
 
 import 'package:ca_junction/screens/onboarding_screen1.dart';
 import 'package:ca_junction/screens/splash_screen.dart';
+import 'package:ca_junction/theme/mytheme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,17 +34,24 @@ class CaJunction extends StatefulWidget {
 class _CaJunctionState extends State<CaJunction> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      
-      initialRoute: SplashScreen.id,
-      routes: {
-        SplashScreen.id :(context) =>const SplashScreen(),
-        OnboardingScreen1.id :(context) => const OnboardingScreen1(),
-        // LoginScreen.id :(context) => LoginScreen(),
-        // RegistrationScreen.id :(context) => RegistrationScreen(),
-        // UserListScreen.id:(context) => UserListScreen(),//2
-        // UserChatScreen.id :(context) => UserChatScreen(senderId: SharedPref.getString(Constants.UUID)!, receiverId: SharedPref.getString(Constants.clickedUser)!, isGroupChat: false),
-      }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        
+        initialRoute: SplashScreen.id,
+        routes: {
+          SplashScreen.id :(context) =>const SplashScreen(),
+          OnboardingScreen1.id :(context) =>  OnboardingScreen1(title: 'Add Client', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem I',),
+          // LoginScreen.id :(context) => LoginScreen(),
+          // RegistrationScreen.id :(context) => RegistrationScreen(),
+          // UserListScreen.id:(context) => UserListScreen(),//2
+          // UserChatScreen.id :(context) => UserChatScreen(senderId: SharedPref.getString(Constants.UUID)!, receiverId: SharedPref.getString(Constants.clickedUser)!, isGroupChat: false),
+        }
+      ),
     );;
   }
 }
