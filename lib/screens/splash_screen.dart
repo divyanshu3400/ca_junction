@@ -4,7 +4,7 @@ import 'package:ca_junction/screens/onboarding_screen1.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const String id = 'splash_screen';
+  
   const SplashScreen({super.key});
 
   @override
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
       Timer(const Duration(seconds: 1), () {
-      Navigator.pushNamed(context, OnboardingScreen1.id);
+      Navigator.of(context).pushNamed("onboarding_screen1");
     });
       super.initState();
     }
