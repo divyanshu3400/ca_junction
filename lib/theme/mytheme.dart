@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 enum CustomThememode { light, dark }
 
 class ThemeProvider with ChangeNotifier {
-  CustomThememode _themeMode = CustomThememode.light;
+  final CustomThememode _themeMode = CustomThememode.light;
 
   // int _index = 0;
   int getColorIndex() {
