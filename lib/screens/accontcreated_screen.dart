@@ -1,15 +1,11 @@
 import 'package:ca_junction/components/rounded_button.dart';
-import 'package:ca_junction/main.dart';
 import 'package:ca_junction/theme/mytheme.dart';
 import 'package:ca_junction/utility/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
-class AccountCreated_Screen extends StatelessWidget {
-  static const String id = 'accontcreated_screen';
-  const AccountCreated_Screen({super.key});
+class AccountCreatedScreen extends StatelessWidget {
+  const AccountCreatedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

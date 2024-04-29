@@ -1,10 +1,12 @@
 import 'dart:async';
 
-import 'package:ca_junction/screens/onboarding_screen1.dart';
+import 'package:ca_junction/core/router/routers.dart';
+import 'package:ca_junction/utility/constants.dart';
+import 'package:ca_junction/utility/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const String id = 'splash_screen';
   const SplashScreen({super.key});
 
   @override
@@ -15,9 +17,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
       Timer(const Duration(seconds: 1), () {
-      Navigator.pushNamed(context, OnboardingScreen1.id);
+        bool? isLoggedIn = SharedPref.getBool(iSLOGGEDIN);
+        if(isLoggedIn!=null && isLoggedIn){
+          context.go('/${Routers.home}');
+        }
+        else{
+          context.pushReplacement('/${Routers.onBoarding}');
+        }
     });
       super.initState();
     }
@@ -29,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
         color: const Color.fromRGBO(16, 13, 64, 1),
         alignment: Alignment.center,
         child: const Image(
-          image: AssetImage("assets/images/Group 8956.png"),
+          image: AssetImage("assets/images/Group8956.png"),
         ),
       ),
     );

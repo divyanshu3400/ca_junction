@@ -1,11 +1,6 @@
-import 'package:ca_junction/theme/daytheme.dart';
 import 'package:flutter/material.dart';
 
 class AdminProfileScreen extends StatelessWidget {
-  final String userName = 'CA ALok Mani';
-  final String designation = '# Alok 192';
-  final bool hasNotification = true;
-
   const AdminProfileScreen({super.key});
 
   @override
@@ -19,7 +14,7 @@ class AdminProfileScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: SingleChildScrollView(
+      child: const SingleChildScrollView(
         child: Column(
           children: [
             Center(

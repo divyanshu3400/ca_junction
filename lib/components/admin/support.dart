@@ -19,7 +19,7 @@ class AdminSupportScreen extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: SingleChildScrollView(
+      child:const SingleChildScrollView(
         child: Column(
           children: [
             Center(

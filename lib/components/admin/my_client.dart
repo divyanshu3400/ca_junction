@@ -3,8 +3,6 @@ import 'package:ca_junction/theme/daytheme.dart';
 import 'package:flutter/material.dart';
 
 class MyClientScreen extends StatefulWidget {
-  static const String id = 'my_client';
-
   const MyClientScreen({Key? key}) : super(key: key);
 
   @override
@@ -15,18 +13,14 @@ class MyClientScreenState extends State<MyClientScreen> {
   String selectedService = 'All';
   List<String> clients = [
     'Divyanshu Kumar Kushwaha',
-    'Client 2',
-    'Client 3',
-    'Client 4',
-    'Client 5',
-    'Client 6',
+    'Dhairya Seth',
+    'Anjali Jaiswal',
+    'Tanmay Mishra',
   ];
   void handleServiceSelection(String service) {
     setState(() {
       selectedService = service;
       print("Selected Service is: ${service}");
-      // Perform filtering logic here based on the selected service
-      // For example, update the list of clients
     });
   }
 
@@ -139,14 +133,13 @@ class MyClientScreenState extends State<MyClientScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your FAB button action here
           print('FAB button pressed');
         },
-        label: const Text('Add Client'),
-        icon: const Icon(Icons.add),
         backgroundColor: AppColors.iconBackgroundColor,
+        child: const Icon(Icons.person_add),
       ),
     );
   }

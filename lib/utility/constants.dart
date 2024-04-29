@@ -1,13 +1,10 @@
 
-import 'package:ca_junction/theme/mytheme.dart';
+import 'package:ca_junction/theme/daytheme.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 kOnboardingScreenTextColor(BuildContext context) {
-  final themeProvider = Provider.of<ThemeProvider>(context);
-  Color textColor = themeProvider.getPrimaryColor;
-  return TextStyle(
-    color: textColor,
+  return const TextStyle(
+    color: AppColors.primaryColor,
     fontFamily: "Poppins",
     fontWeight: FontWeight.w600,
     fontSize: 20.0,
@@ -15,8 +12,7 @@ kOnboardingScreenTextColor(BuildContext context) {
 }
 
 kTitleTextColor(BuildContext context) {
-  final themeProvider = Provider.of<ThemeProvider>(context);
-  Color textColor = themeProvider.getTitleTextColor;
+  Color textColor = AppColors.primaryColor;
   return TextStyle(
     color: textColor,
     fontFamily: "Poppins",
@@ -27,8 +23,7 @@ kTitleTextColor(BuildContext context) {
 
 
 kDescriptionColor(BuildContext context) {
-  final themeProvider = Provider.of<ThemeProvider>(context);
-  Color descriptionTextColor = themeProvider.getDescriptionColor;
+  Color descriptionTextColor = AppColors.mutedTextColor;
   return TextStyle(
     color: descriptionTextColor,
     fontFamily: "Poppins",
@@ -55,24 +50,21 @@ kDescriptionColor(BuildContext context) {
 
 
 InputDecoration kTextFieldDecoration(BuildContext context) {
-  final themeProvider = Provider.of<ThemeProvider>(context);
-  Color fillColor = themeProvider.getTextFieldColor;
-  Color enabledBorderColor = themeProvider.getEnabledBorderColor;
-  Color focusedBorderColor = themeProvider.getFocusedBorderColor;
 
-  return InputDecoration(
-    fillColor: fillColor,
+  return const InputDecoration(
     filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: enabledBorderColor, width: 1.0),
+      borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: focusedBorderColor, width: 2.0),
+      borderSide: BorderSide(color: AppColors.mutedTextColor, width: 2.0),
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
     ),
   );
 }
+
+const String iSLOGGEDIN = 'isLoggedIn';

@@ -3,18 +3,19 @@ import 'package:ca_junction/theme/mytheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChangePassword_Screen extends StatefulWidget {
-  static const String id = 'changePassword_screen';
+class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key});
+
 
   @override
-  State<ChangePassword_Screen> createState() => _ChangePassword_ScreenState();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
-class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool passwordShow = true;
 
   TextEditingController passwordController = TextEditingController();
-  TextEditingController new_passwordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class _ChangePassword_ScreenState extends State<ChangePassword_Screen> {
             ),
             SizedBox(height: 20), // Adjust height as needed
             TextField(
-              controller: new_passwordController,
+              controller: newPasswordController,
               obscureText: passwordShow,
               cursorColor: themeprovider.getSecondaryColor,
               style: TextStyle(

@@ -11,12 +11,12 @@ class OnboardingContent {
 
 List<OnboardingContent> contents = [
   OnboardingContent(
-    image: "assets/images/Group 8902.png",
+    image: "assets/images/Group8902.png",
     title: 'Add Client', 
     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem I',
   ),
   OnboardingContent(
-    image: "assets/images/Group 8902.png",
+    image: "assets/images/Group8902.png",
     title: 'Send Document Request', 
     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem I',
   ),

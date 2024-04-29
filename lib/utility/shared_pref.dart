@@ -30,7 +30,12 @@ class SharedPref {
   static double? getDouble(String key) {
     return _prefs.getDouble(key);
   }
-
+  static Future<bool> storeBool(String key,bool value) async{
+    return await _prefs.setBool(key, value);
+  }
+  static bool? getBool(String key) {
+    return _prefs.getBool(key);
+  }
   static Future<bool> remove(String key) async {
     return await _prefs.remove(key);
   }

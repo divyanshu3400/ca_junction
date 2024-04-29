@@ -1,23 +1,28 @@
 import 'package:ca_junction/components/rounded_button.dart';
-import 'package:ca_junction/screens/forgotPassword_screen.dart';
-import 'package:ca_junction/theme/mytheme.dart';
+import 'package:ca_junction/core/router/routers.dart';
+import 'package:ca_junction/theme/daytheme.dart';
 import 'package:ca_junction/utility/constants.dart';
+import 'package:ca_junction/utility/shared_pref.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../core/constant/text_style.dart';
+import '../input_form_field.dart';
 
-class SignIn_Screen extends StatefulWidget {
-  static const String id = 'signin_screen';
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
 
   @override
-  State<SignIn_Screen> createState() => _SignIn_ScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignIn_ScreenState extends State<SignIn_Screen> {
+class _SignInScreenState extends State<SignInScreen> {
 
   final _formKey = GlobalKey<FormState>(); // Declare _formKey here
 
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
 
   bool passwordShow = true;
@@ -25,12 +30,10 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
   @override
 
   Widget build(BuildContext context) {
-    final themeprovider = Provider.of<ThemeProvider>(context);
-
     return Scaffold(
       
       resizeToAvoidBottomInset: false,
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -41,7 +44,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(color: themeprovider.getBackgroundColor),
+                decoration: const BoxDecoration(color: AppColors.white),
               ),
             ),
             Positioned(
@@ -50,7 +53,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 288,
-                decoration: BoxDecoration(color: Color(0xFF100D40)),
+                decoration: const BoxDecoration(color: Color(0xFF100D40)),
               ),
             ),
             Positioned(
@@ -58,7 +61,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
               top: 320,
               child: Center(
                 child: Container(
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   width: MediaQuery.of(context).size.width,
                   child: Form(
                     key: _formKey, // Assign the key to the Form widget
@@ -66,100 +69,58 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Center(
+                        const Center(
                           child: Text(
                             'Welcome Back!',
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
-                              color: themeprovider.getTitleTextColor,
+                              color: AppColors.primaryColor,
                             ),
                           ),
                         ),
-                        SizedBox(height: 20.0),
-                        Text(
-                          'Email Address',
-                          style: TextStyle(
-                            color: themeprovider.getTitleTextColor,
-                            fontFamily: 'Poppins',
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        const SizedBox(height: 20.0),
+                        const Text(
+                          'Email',
+                          style: AppTextStyle.smallTextTwo,
                         ),
-                        SizedBox(height: 7.0),
-                        TextFormField(
-                          controller: emailController,
-                          cursorColor: themeprovider.getSecondaryColor,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.0,
-                            color: themeprovider.getTitleTextColor,
+                        SizedBox(height: 20.h),
+                        InputFormField(
+                          borderRadius: BorderRadius.circular(10),
+                          fillColor: const Color(0xfffafafa),
+                          textEditingController: emailController,
+                          validator: Validators.isValidEmail,
+                          hintTextStyle: AppTextStyle.textStyleOne(
+                            const Color(0xffC4C5C4),
+                            14,
+                            FontWeight.w400,
                           ),
-                          decoration: kTextFieldDecoration(context),
+                          hintText: 'Enter your Email Address',
+                          borderType: BorderType.none,
                         ),
-                        SizedBox(height: 20.0),
-                        Text(
+                        SizedBox(height: 30.h),
+                        const Text(
                           'Password',
-                          style: TextStyle(
-                            color: themeprovider.getTitleTextColor,
-                            fontFamily: 'Poppins',
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          style: AppTextStyle.smallTextTwo,
                         ),
-                        SizedBox(height: 7.0),
-                        TextFormField(
-                          controller: passwordController,
-                          cursorColor: themeprovider.getSecondaryColor,
-                          obscureText: passwordShow,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14.0,
-                            color: themeprovider.getTitleTextColor,
+                        SizedBox(height: 20.h),
+                        InputFormField(
+                          borderRadius: BorderRadius.circular(10),
+                          fillColor: const Color(0xfffafafa),
+                          password: EnabledPassword(),
+                          obscuringCharacter: '*',
+                          textEditingController: passwordController,
+                          validator: Validators.isValidPassword,
+                          hintTextStyle: AppTextStyle.textStyleOne(
+                            const Color(0xffC4C5C4),
+                            14,
+                            FontWeight.w400,
                           ),
-                          decoration: InputDecoration(
-                            fillColor: themeprovider.getTextFieldColor,
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: themeprovider.getEnabledBorderColor, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: themeprovider.getFocusedBorderColor, width: 2.0),
-                              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            ),
-                            suffixIcon: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  passwordShow = !passwordShow;
-                                });
-                              },
-                              child: Icon(
-                                color: themeprovider.getPurpleTextColor,
-                                passwordShow == true ? Icons.visibility : Icons.visibility_off,
-                              ),
-                            ),
-                          ),
+                          hintText: 'Enter Account Password',
+                          borderType: BorderType.none,
                         ),
-                        SizedBox(height: 7.0),
+                        SizedBox(height: 70.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -167,7 +128,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                               onPressed: () {
                                 Navigator.of(context).pushNamed("forgotPassword_screen");
                               },
-                              child: Text(
+                              child: const Text(
                                 'Forgot Password ?',
                                 style: TextStyle(
                                   color: Color.fromRGBO(196, 196, 196, 1),
@@ -176,38 +137,40 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 15.0),
+                        const SizedBox(height: 15.0),
                         RoundedButton(
                           colour: const Color.fromRGBO(16, 13, 64, 1),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+                              SharedPref.storeBool(iSLOGGEDIN, true);
+                              context.go('/${Routers.home}');
                               // If the form is valid, proceed with signin logic
                               // Access email and password with emailController.text and passwordController.text
                             }
                           },
                           title: 'Sign In',
-                          textColor: Color.fromRGBO(255, 255, 255, 1),
+                          textColor: const Color.fromRGBO(255, 255, 255, 1),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Don\'t have an account ?',
                               style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12.0,
-                                color: themeprovider.getTitleTextColor,
+                                color: AppColors.primaryColor,
                               ),
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamed("signup_screen");
+                                context.go('/${Routers.signUp}');
                               },
-                              child: Text(
+                              child: const Text(
                                 "Sign Up",
                                 style: TextStyle(
-                                  color: themeprovider.getTitleTextColor,
+                                  color: AppColors.primaryColor,
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.w600,
                                   fontSize: 12.0,
@@ -222,7 +185,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 24,
               top: 92,
               child: Text(
@@ -235,7 +198,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                 ),
               ),
             ),
-            Positioned(
+            const Positioned(
               left: 0,
               top: 146,
               child: Image(
@@ -243,7 +206,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                 image: AssetImage('assets/images/Layer 3.png'),
               ),
             ),
-            Positioned(
+            const Positioned(
               right: 0,
               top: 85.0,
               child: Image(

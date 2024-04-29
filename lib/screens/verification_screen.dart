@@ -1,23 +1,19 @@
 import 'package:ca_junction/components/rounded_button.dart';
-import 'package:ca_junction/screens/accontcreated_screen.dart';
 import 'package:ca_junction/utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 import '../theme/mytheme.dart';
 
-class Vereification_Screen extends StatefulWidget {
-  
-  const Vereification_Screen({super.key});
-  
+class VerificationScreen extends StatefulWidget {
+  const VerificationScreen({super.key});
+
   @override
-  State<Vereification_Screen> createState() => _Vereification_ScreenState();
+  State<VerificationScreen> createState() => _VerificationScreenState();
 }
 
-class _Vereification_ScreenState extends State<Vereification_Screen> {
+class _VerificationScreenState extends State<VerificationScreen> {
 
 
   @override

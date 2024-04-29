@@ -1,57 +1,52 @@
-
-import 'package:ca_junction/screens/onboarding_screen1.dart';
-import 'package:ca_junction/screens/splash_screen.dart';
-import 'package:ca_junction/theme/mytheme.dart';
+import 'package:ca_junction/utility/shared_pref.dart';
+import 'package:core/core.dart';
+import 'package:ca_junction/core/router/router_config.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
-      home: CaJunction(),
-    );
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    Future(() {
+      ref.read(cacheServiceProvider).init();
+    });
+    SharedPref.init();
+
   }
-}
 
-class CaJunction extends StatefulWidget {
-  const CaJunction({super.key});
-
-  @override
-  State<CaJunction> createState() => _CaJunctionState();
-}
-
-class _CaJunctionState extends State<CaJunction> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => ThemeProvider(),
+    final router = ref.watch(goRouterProvider);
+
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: AppTheme(
+        themeData: const UIThemeData(),
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'DM Sans',
+          ),
+          routeInformationParser: router.routeInformationParser,
+          routeInformationProvider: router.routeInformationProvider,
+          routerDelegate: router.routerDelegate,
         ),
-      ],
-      child: MaterialApp(
-        
-        initialRoute: SplashScreen.id,
-        routes: {
-          SplashScreen.id :(context) =>const SplashScreen(),
-          OnboardingScreen1.id :(context) =>  OnboardingScreen1(title: 'Add Client', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem I',),
-          // LoginScreen.id :(context) => LoginScreen(),
-          // RegistrationScreen.id :(context) => RegistrationScreen(),
-          // UserListScreen.id:(context) => UserListScreen(),//2
-          // UserChatScreen.id :(context) => UserChatScreen(senderId: SharedPref.getString(Constants.UUID)!, receiverId: SharedPref.getString(Constants.clickedUser)!, isGroupChat: false),
-        }
       ),
-    );;
+    );
   }
 }

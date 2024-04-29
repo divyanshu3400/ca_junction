@@ -1,21 +1,19 @@
-
-
 import 'package:ca_junction/components/rounded_button.dart';
-import 'package:ca_junction/screens/verification_screen.dart';
 import 'package:ca_junction/theme/mytheme.dart';
 import 'package:ca_junction/utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 
-class PhoneNumber_Screen extends StatefulWidget {
-  static const String id = 'phone_number';
+class PhoneNumberScreen extends StatefulWidget {
+  const PhoneNumberScreen({super.key});
+
 
   @override
-  State<PhoneNumber_Screen> createState() => _PhoneNumberState();
+  State<PhoneNumberScreen> createState() => _PhoneNumberState();
 }
 
-class _PhoneNumberState extends State<PhoneNumber_Screen> {
+class _PhoneNumberState extends State<PhoneNumberScreen> {
   String countryCode = '+91';
   String isoCode = 'IN';
   late String userPhoneNumber;

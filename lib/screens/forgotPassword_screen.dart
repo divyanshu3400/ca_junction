@@ -1,16 +1,23 @@
 import 'package:ca_junction/components/rounded_button.dart';
-import 'package:ca_junction/screens/changePassword_screen.dart';
+import 'package:ca_junction/theme/daytheme.dart';
 import 'package:ca_junction/theme/mytheme.dart';
 import 'package:ca_junction/utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ForgotPassword_Screen extends StatelessWidget {
-  static const String id = 'forgotPassword_screen';
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
+
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     final themeprovider = Provider.of<ThemeProvider>(context);
@@ -99,7 +106,7 @@ class ForgotPassword_Screen extends StatelessWidget {
                         fontSize: 14.0,
                         color: themeprovider.getTitleTextColor,
                       ),
-                      
+
                     ),
                   ),
                   Positioned(
@@ -108,17 +115,17 @@ class ForgotPassword_Screen extends StatelessWidget {
                     width: 327,
                     child: Form(
                       child: RoundedButton(
-                        colour: const Color.fromRGBO(16, 13, 64, 1), 
+                        colour: AppColors.primaryColor,
                         onPressed: (){
                           //Add skip logic here
                           Navigator.of(context).pushNamed("changePassword_screen");
-                        }, 
+                        },
                         title: 'Send Verification Code',
                         textColor: Color.fromRGBO(255, 255, 255, 1),
                       ),
                     ),
                   ),
-                  
+
                 ],
               ),
             ),
