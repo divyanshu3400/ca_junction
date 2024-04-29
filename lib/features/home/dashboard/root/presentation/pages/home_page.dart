@@ -20,6 +20,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   final String designation = '# Alok 192';
   final bool hasNotification = true;
 
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +28,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       ref.read(connectivityStatusProviders.notifier).checkStatus();
     });
   }
+  
 
   @override
   void dispose() {
