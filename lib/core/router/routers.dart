@@ -3,6 +3,7 @@ class Routers{
   static String splashScreen = 'splashScreen';
   static String welcomeScreen = 'welcomeScreen';
   static String homeShell = 'home-shell';
+  static String homeRoot = 'home-root';
   static String root = 'root';
   static String changePass = 'changePass';
   static String onBoarding = 'onboarding';

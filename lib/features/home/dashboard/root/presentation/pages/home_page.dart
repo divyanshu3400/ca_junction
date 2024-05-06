@@ -1,6 +1,7 @@
 import 'package:ca_junction/core/constant/text_style.dart';
 import 'package:ca_junction/core/network_connectivity_check/network_connectivity_provider.dart';
 import 'package:ca_junction/core/router/routers.dart';
+import 'package:ca_junction/utility/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -102,6 +103,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         icon: const Icon(Icons.refresh_sharp,
                             color: Colors.white),
                         onPressed: () {
+                          SharedPref.removeAll();
+                          context.goNamed('/${Routers.signIn}');
                           // Refresh action
                         },
                       ),

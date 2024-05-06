@@ -1,12 +1,18 @@
 import 'package:ca_junction/components/rounded_button.dart';
 import 'package:ca_junction/core/router/routers.dart';
 import 'package:ca_junction/theme/daytheme.dart';
+import 'package:ca_junction/utility/shared_pref.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../core/constant/text_style.dart';
 import '../input_form_field.dart';
+import '../utility/api_request.dart';
 import '../utility/constants.dart';
+import 'dart:math';
+
+import '../utility/custom_loader.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -20,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordController2 = TextEditingController();
   bool passwordShow = true;
   bool _agreeToTerms = false;
 
@@ -43,7 +50,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Full Name field
                       const Text(
                         'Full Name',
                         style: TextStyle(
@@ -118,6 +124,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderType: BorderType.none,
                         textEditingController: passwordController,
                       ),
+                      const SizedBox(height: 7.0),
+                      const Text(
+                        'Password',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(height: 7.0),
+                      InputFormField(
+                        borderRadius: BorderRadius.circular(10),
+                        fillColor: const Color(0xfffafafa),
+                        password: EnabledPassword(),
+                        obscuringCharacter: '*',
+                        validator: Validators.isValidPassword,
+                        hintTextStyle: AppTextStyle.textStyleOne(
+                          const Color(0xffC4C5C4), 14, FontWeight.w400,),
+                        hintText: 'Confirm Password',
+                        borderType: BorderType.none,
+                        textEditingController: passwordController2,
+                      ),
                       const SizedBox(height: 10.0),
 
                       // Terms and conditions checkbox
@@ -152,13 +180,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       const SizedBox(height: 30.0),
 
-                      // Sign Up button
                       RoundedButton(
                         colour: const Color.fromRGBO(16, 13, 64, 1),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // If the form is valid, proceed with signup logic
-                            // Access fields with usernameController.text, emailController.text, passwordController.text
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false, // Prevent user from dismissing dialog
+                              builder: (BuildContext context) {
+                                return const CustomLoaderDialog(message: 'Creating Account. Don\'t exit..');
+                              },
+                            );
+                            _handleSubmit();
                           }
                         },
                         title: 'Sign Up',
@@ -194,6 +227,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextButton(
                     onPressed: () {
+
                       context.go('/${Routers.signIn}');
                     },
                     child: const Text(
@@ -213,5 +247,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+  Future<void> _handleSubmit() async {
+    var fullName = usernameController.text.toString().trim();
+    var userEmail = emailController.text.toString().trim();
+    var userPass = passwordController.text.toString().trim();
+    var userPass2 = passwordController2.text.toString().trim();
+    var random = Random();
+    var randomNumber = random.nextInt(9000) + 1000;
+    List<String> nameParts = fullName.split(' ');
+    var firstName = nameParts[0];
+    var lastName = nameParts.sublist(1).join(' ');
+    firstName = firstName.trim();
+    lastName = lastName.trim();
+    Map<String, String> formData = {
+      'username': '$firstName$randomNumber',
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': userEmail,
+      'password': userPass,
+      'password2': userPass2,
+    };
+    var response = await postRequest('api/create-user', formData);
+    setState(() {
+      Navigator.pop(context);
+      if (response != null && response['status'] == 201) {
+        SharedPref.storeBool(iSLOGGEDIN, true);
+        SharedPref.storeString(token, response['token']);
+        context.pushReplacement('/${Routers.welcomeScreen}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${response['message']}')),
+        );
+      } else if (response != null && response['status'] == 400) {
+        var errorMessage = response['message'];
+        if (errorMessage is Map && errorMessage.containsKey('password')) {
+          errorMessage = errorMessage['password'];
+        }
+        else if (errorMessage is Map && errorMessage.containsKey('username')) {
+          errorMessage = errorMessage['username'];
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage.toString())),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error, Try again')),
+        );
+      }
+    });
+
   }
 }

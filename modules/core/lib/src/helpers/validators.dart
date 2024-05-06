@@ -40,13 +40,10 @@ class Validators {
     if (name == null || name.isEmpty) {
       return 'Please enter name';
     } else {
-      if (!_nameRegExp.hasMatch(name)) {
-        return 'Please enter valid name';
-      } else {
         return null;
       }
     }
-  }
+
 
   static String? inValidOTP(String? otp) {
     if (otp == null || otp.isEmpty) {

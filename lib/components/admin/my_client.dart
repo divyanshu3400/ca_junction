@@ -1,8 +1,14 @@
 import 'package:ca_junction/components/admin/services_list.dart';
+import 'package:ca_junction/core/router/routers.dart';
 import 'package:ca_junction/theme/daytheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../core/router/router_config.dart';
 
 class MyClientScreen extends StatefulWidget {
+
   const MyClientScreen({Key? key}) : super(key: key);
 
   @override
@@ -10,6 +16,7 @@ class MyClientScreen extends StatefulWidget {
 }
 
 class MyClientScreenState extends State<MyClientScreen> {
+
   String selectedService = 'All';
   List<String> clients = [
     'Divyanshu Kumar Kushwaha',
@@ -20,7 +27,6 @@ class MyClientScreenState extends State<MyClientScreen> {
   void handleServiceSelection(String service) {
     setState(() {
       selectedService = service;
-      print("Selected Service is: ${service}");
     });
   }
 
@@ -48,6 +54,7 @@ class MyClientScreenState extends State<MyClientScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -55,7 +62,7 @@ class MyClientScreenState extends State<MyClientScreen> {
         leading: IconButton(
           icon:const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pushReplacement('/${Routers.homeRoot}');
           },
         ),
         actions: const [
@@ -143,5 +150,6 @@ class MyClientScreenState extends State<MyClientScreen> {
       ),
     );
   }
+
 }
 

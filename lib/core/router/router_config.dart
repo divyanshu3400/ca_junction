@@ -108,6 +108,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           return ProfileAndPassword(key: state.pageKey);
         },
       ),
+      GoRoute(
+        path: '/${Routers.homeRoot}',
+        name: Routers.homeRoot,
+        builder: (context, state) {
+          return HomePage(key: state.pageKey);
+        },
+      ),
+
       ShellRoute(
           navigatorKey: _shellState,
           builder: (context, state, child) =>

@@ -1,7 +1,6 @@
 import 'package:ca_junction/components/rounded_button.dart';
 import 'package:ca_junction/core/router/routers.dart';
 import 'package:ca_junction/theme/daytheme.dart';
-import 'package:ca_junction/theme/mytheme.dart';
 import 'package:ca_junction/utility/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -91,7 +90,8 @@ class _OnboardingScreen1State extends State<OnboardingScreen1> {
                   onPressed: (){
                     // Navigator.pushNamed(context, OnboardingScreen2.id);
                     if(currentIndexPage == contents.length-1){
-                      Navigator.of(context).pushNamed("signup_screen");
+                      context.go('/${Routers.signUp}');
+                      // Navigator.of(context).pushNamed("signup_screen");
                     }
                     _controller.nextPage(
                       duration:const Duration(milliseconds: 100),
