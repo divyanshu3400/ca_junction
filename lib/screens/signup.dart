@@ -10,9 +10,7 @@ import '../input_form_field.dart';
 import '../utility/api_request.dart';
 import '../utility/constants.dart';
 import 'dart:math';
-
 import '../utility/custom_loader.dart';
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -213,38 +211,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               // Already have an account? Sign In button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Already have an account ?',
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12.0,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
 
-                      context.go('/${Routers.signIn}');
-                    },
-                    child: const Text(
-                      "Sign In",
-                      style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Already have an account ?',
+            style: TextStyle(
+              color: AppColors.primaryColor,
+              fontFamily: "Poppins",
+              fontWeight: FontWeight.w400,
+              fontSize: 12.0,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+
+              context.go('/${Routers.signIn}');
+            },
+            child: const Text(
+              "Sign In",
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontFamily: "Poppins",
+                fontWeight: FontWeight.w600,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -273,6 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Navigator.pop(context);
       if (response != null && response['status'] == 201) {
         SharedPref.storeBool(iSLOGGEDIN, true);
+        SharedPref.storeInt(userId, response['data']['id']);
         SharedPref.storeString(token, response['token']);
         context.pushReplacement('/${Routers.welcomeScreen}');
         ScaffoldMessenger.of(context).showSnackBar(

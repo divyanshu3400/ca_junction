@@ -90,7 +90,7 @@ class _OnboardingScreen1State extends State<OnboardingScreen1> {
                   onPressed: (){
                     // Navigator.pushNamed(context, OnboardingScreen2.id);
                     if(currentIndexPage == contents.length-1){
-                      context.go('/${Routers.signUp}');
+                      context.go('/${Routers.signIn}');
                       // Navigator.of(context).pushNamed("signup_screen");
                     }
                     _controller.nextPage(
@@ -103,7 +103,7 @@ class _OnboardingScreen1State extends State<OnboardingScreen1> {
                 ),
                 TextButton(
                   onPressed: () {
-                    context.go('/${Routers.signUp}');
+                    context.go('/${Routers.signIn}');
                   },
                   child:const Text(
                     "Skip This Step",
@@ -124,83 +124,3 @@ class _OnboardingScreen1State extends State<OnboardingScreen1> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-// SafeArea(
-//         child: Center(
-//           child: Container(
-//             padding: EdgeInsets.symmetric(horizontal: 30.0),
-//             child: Column(
-//               children: [
-//                 SizedBox(height: 194.0),
-//                 Expanded(
-//                   child: Image(
-//                     image: AssetImage("assets/images/Group8902.png"),
-//                     // fit: BoxFit.contain,
-//                   ),
-//                 ),
-//                 SizedBox(height: 50),
-//                 Text(
-//                   widget.title,
-//                   style: kOnboardingScreenTextColor(context),
-//                 ),
-//                 SizedBox(height: 20),
-//                 Expanded(
-//                   // height: 72.0,
-//                   child: Padding(
-//                     padding: EdgeInsets.symmetric(horizontal: 35.0),
-//                     child: Text(
-//                       textAlign: TextAlign.center,
-//                       widget.description,
-//                       style: kDescriptionColor(context),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(height: 20),
-//                 DotsIndicator(
-//                   decorator: DotsDecorator(
-//                     color: Color.fromRGBO(245, 245, 245, 1), // Inactive color
-//                     activeColor: Color.fromRGBO(16, 13, 64, 1),
-//                   ),
-//                   dotsCount: pageLength,
-//                   position: currentIndexPage,
-//                 ),
-//                 SizedBox(height: 30),
-//                 RoundedButton(
-//                   colour: const Color.fromRGBO(16, 13, 64, 1), 
-//                   onPressed: (){
-//                     Navigator.pushNamed(context, OnboardingScreen2.id);
-//                   }, 
-//                   title: 'Next Step',
-//                   textColor: Color.fromRGBO(255, 255, 255, 1),
-//                 ),
-//                 TextButton(
-//                   onPressed: () {
-//                     // Add your skip logic here
-//                     Navigator.pushNamed(context, SignUpScreen.id);
-//                   },
-//                   child: Text(
-//                     "Skip This Step",
-//                     style: TextStyle(
-//                       color: themeprovider.getPurpleTextColor,
-//                       fontFamily: "Poppins",
-//                       fontWeight: FontWeight.w600,
-//                       fontSize: 16.0,
-//                       decoration: TextDecoration.underline,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-    

@@ -15,6 +15,7 @@ Future<dynamic> postRequest(String endPoint, Map<String, dynamic> data) async {
       },
       body: requestBody,
     );
+    print(response.body);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = json.decode(response.body);
       final userData = json.decode(jsonData['data']);
@@ -26,4 +27,21 @@ Future<dynamic> postRequest(String endPoint, Map<String, dynamic> data) async {
       return json.decode(response.body);
     }
   } catch (e) {}
+}
+
+Future<bool> fetchUserDashboardStats(int? userId) async {
+  final apiUrl = 'http://89.116.20.46:9999/api/users/$userId/';
+  try {
+    final http.Response response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body);
+      final box = await Hive.openBox(userBox);
+      box.put(userDashboardStats, responseData);
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    throw error.toString();
+  }
 }

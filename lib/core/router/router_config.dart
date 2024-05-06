@@ -73,7 +73,20 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/${Routers.myClients}',
         name: Routers.myClients,
-        builder: (context, state) => MyClientScreen(key: state.pageKey,),
+        builder: (context, state) => Navigator(
+          onGenerateRoute: (settings) {
+            return PageRouteBuilder(
+              transitionDuration:const Duration(milliseconds: 300),
+              pageBuilder: (_, __, ___) => MyClientScreen(key: state.pageKey),
+              transitionsBuilder: (_, animation, __, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+            );
+          },
+        ),
       ),
       GoRoute(
         path: '/${Routers.verification}/:name',
