@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class TaskByAdminScreen extends StatefulWidget {
   static const String id = 'task_by_admin';
-
   const TaskByAdminScreen({Key? key}) : super(key: key);
 
   @override
