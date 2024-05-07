@@ -4,6 +4,8 @@ import 'package:ca_junction/utility/shared_pref.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
+import 'hive_service.dart';
+
 Future<dynamic> postRequest(String endPoint, Map<String, dynamic> data) async {
   String apiUrl = '$BASE_URL$endPoint/';
   String requestBody = jsonEncode(data);
@@ -15,13 +17,11 @@ Future<dynamic> postRequest(String endPoint, Map<String, dynamic> data) async {
       },
       body: requestBody,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData = json.decode(response.body);
       final userData = json.decode(jsonData['data']);
       SharedPref.storeString(token, jsonData['token']);
-      final box = await Hive.openBox(userBox);
-      await box.put(userDataKey, userData);
+      HiveService().putData(userDataKey, userData);
       return json.decode(response.body);
     } else {
       return json.decode(response.body);
