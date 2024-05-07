@@ -1,16 +1,22 @@
+import 'package:ca_junction/utility/hive_service.dart';
 import 'package:ca_junction/utility/shared_pref.dart';
 import 'package:core/core.dart';
 import 'package:ca_junction/core/router/router_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
-  runApp(const ProviderScope(child: MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPref.init(); // If you have any other initialization tasks
+  await HiveService().init();
+  // Initialize Hive
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
-
 
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
@@ -21,14 +27,11 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   @override
-
   void initState() {
     super.initState();
     Future(() {
       ref.read(cacheServiceProvider).init();
     });
-    SharedPref.init();
-    Hive.initFlutter();
   }
 
   @override

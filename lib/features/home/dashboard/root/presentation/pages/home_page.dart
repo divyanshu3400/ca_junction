@@ -8,14 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
 import '../../../../../../theme/daytheme.dart';
+import '../../../../../../utility/hive_service.dart';
 
 part '../widgets/product_details_seller_info_section.dart';
 
+HiveService hiveService = HiveService();
+
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
-
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -47,16 +48,11 @@ class _HomePageState extends ConsumerState<HomePage> {
         storedData = await getStoredData(userDashboardStats);
       }
     }
-    if (storedData != null) {
-      return storedData;
-    } else {
-      return null;
-    }
+    return storedData;
   }
 
   Future<dynamic> getStoredData(String key) async {
-    var box = await Hive.openBox<Map>(userBox); // Open the box
-    return box.get(key);
+    return HiveService().getData(userDashboardStats);
   }
 
   @override
