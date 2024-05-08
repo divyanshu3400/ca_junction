@@ -10,6 +10,7 @@ import 'package:ca_junction/features/authentication/verification/presentation/pa
 import 'package:ca_junction/features/authentication/verification/presentation/pages/verification_page.dart';
 import 'package:ca_junction/features/home/dashboard/root/presentation/pages/home_page.dart';
 import 'package:ca_junction/features/home/dashboard/root/presentation/pages/main_page.dart';
+import 'package:ca_junction/screens/UserRegistration_Screen.dart';
 import 'package:ca_junction/screens/accontcreated_screen.dart';
 import 'package:ca_junction/screens/forgotPassword_screen.dart';
 import 'package:ca_junction/screens/onboarding_screen1.dart';
@@ -27,7 +28,8 @@ final GlobalKey<NavigatorState> _shellState = GlobalKey(debugLabel: 'shell');
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/${Routers.splashScreen}',
+    // initialLocation: '/${Routers.splashScreen}',
+    initialLocation: '/${Routers.userRegistration}',
     navigatorKey: _rootState,
     routes: [
       GoRoute(
@@ -127,6 +129,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           return HomePage(key: state.pageKey);
         },
+      ),
+      GoRoute(
+        path: '/${Routers.userRegistration}',
+        name: Routers.userRegistration,
+        builder: (context, state) => UserRegistrationScreen(key: state.pageKey),
       ),
 
       ShellRoute(

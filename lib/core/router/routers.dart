@@ -23,4 +23,5 @@ class Routers{
   static String profile = 'profile';
   static String more = 'more';
   static String myClients = 'myClients';
+  static String userRegistration = 'user-registration';
 }

@@ -62,7 +62,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor:const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor:Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -298,6 +298,47 @@ class _GridBState extends State<GridB> {
     );
   }
 }
+
+
+class DropDownWidget extends StatefulWidget {
+  const DropDownWidget({super.key});
+
+  @override
+  State<DropDownWidget> createState() => _DropDownWidgetState();
+}
+
+class _DropDownWidgetState extends State<DropDownWidget> {
+  String selectedvalue = 'In 24 hours';
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey, // Choose your desired border color
+          width: 1.0, // Adjust the border width as needed
+        ),
+        borderRadius:
+            BorderRadius.circular(5.0), // Adjust the border radius as needed
+      ),
+      child: DropdownButton(
+          isExpanded: true,
+          value: selectedvalue,
+          icon: Icon(Icons.keyboard_arrow_down),
+          onChanged: (String? newValue) {
+            setState(() {
+              selectedvalue = newValue!;
+            });
+          },
+          items: <String>['In 24 hours', 'In 48 hours', 'In 7 days']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(value: value, child: Text(value));
+          }).toList()),
+    );
+  }
+}
+
 
 
 
